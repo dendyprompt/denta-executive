@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f8fa">
+<meta name="description" content="DENTA Executive: AI Assistant untuk prioritas, laporan, rencana kerja, dan bahan keputusan.">
+<title>DENTA Executive — Your Executive AI Assistant</title>
+<style>
+:root{--ink:#172b36;--muted:#61727c;--line:#dfe6e9;--green:#12664e;--mint:#eaf5ef;--bg:#f7f8fa}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1100px,90%);margin:auto}
+nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}
+.brand{font-size:18px;font-weight:800;letter-spacing:-.6px}
+.brand span{color:var(--green)}
+.nav-link{font-size:13px;color:var(--muted)}
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:center;padding:88px 0 76px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--green)}
+h1{font-size:clamp(46px,7vw,78px);line-height:1.05;letter-spacing:-4px;margin:20px 0}
+h1 span{display:block;color:var(--green)}
+.lead{font-size:18px;color:var(--muted);max-width:570px}
+.badge{display:inline-flex;padding:7px 13px;border:1px solid #cce3d5;border-radius:30px;background:var(--mint);color:var(--green);font-size:11px;font-weight:700;box-shadow:0 0 20px #cce3d555}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border-radius:9px;font-weight:700;font-size:14px;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--green);color:white;box-shadow:0 6px 16px #12664e20}
+.secondary{background:white;border:1px solid var(--line)}
+.hero-note{font-size:12px;color:var(--muted);margin-top:18px}
+.dashboard{background:white;border:1px solid var(--line);padding:28px;border-radius:22px;box-shadow:0 24px 70px #172b360a;transform:rotate(2deg)}
+.dash-top{display:flex;gap:14px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:20px}
+.avatar{display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:var(--green);color:white;font-size:24px;font-weight:800;flex-shrink:0}
+.dash-top strong{display:block}
+.small{font-size:12px;color:var(--muted)}
+.task{display:flex;gap:12px;align-items:flex-start;padding:17px 0;border-bottom:1px solid #edf0f2}
+.task:last-of-type{border-bottom:0}
+.check{color:var(--green);background:var(--mint);width:25px;height:25px;text-align:center;border-radius:50%;flex-shrink:0}
+.task strong{font-size:13px;display:block}
+.dash-footer{margin-top:15px;padding:10px;border-radius:7px;background:var(--mint);font-size:11px;color:var(--green)}
+section{padding:56px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:26px}
+h2{font-size:clamp(27px,4vw,38px);line-height:1.2;letter-spacing:-1.2px;margin:9px 0}
+.section-head p{color:var(--muted);font-size:14px;max-width:340px;margin:0}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:28px}
+.card h3{margin:0 0 22px;font-size:22px}
+.solution{background:#f0f7f3;border-color:#cce3d5}
+.solution h3{color:var(--green)}
+.item{padding:16px 0;border-top:1px solid var(--line)}
+.item strong{font-size:14px}
+.item p{margin:5px 0 0;font-size:13px;color:var(--muted)}
+.tools{display:block;color:var(--green);font-size:11px;font-weight:700;margin-top:7px}
+.capabilities{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cap-number{font-size:12px;color:var(--green);font-weight:800}
+.capabilities h3{font-size:18px;margin:16px 0 10px}
+.capabilities p{font-size:13px;color:var(--muted);margin:0}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
+.pills span{font-size:10px;padding:4px 8px;border:1px solid var(--line);border-radius:5px;background:#f8faf9}
+.simulator{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:white}
+.sim-top{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sim-top strong{font-size:14px}
+.sim-top span{font-size:11px;color:var(--green)}
+.scenarios{display:flex;gap:10px;flex-wrap:wrap;padding:20px 24px;background:#fbfcfc}
+.scenario{cursor:pointer;border:1px solid var(--line);background:white;color:var(--ink);border-radius:8px;padding:10px 14px;font-size:12px;font-weight:700}
+.scenario:hover,.scenario[aria-pressed="true"]{border-color:var(--green);color:var(--green);background:var(--mint)}
+.scenario:disabled{opacity:.6;cursor:wait}
+.chat{height:340px;overflow:auto;padding:24px;display:flex;flex-direction:column;gap:14px}
+.message{max-width:85%;padding:13px 16px;border-radius:12px;background:#f0f3f5;font-size:13px;white-space:pre-line;animation:arrive .25s ease-out}
+.message strong{display:block;font-size:10px;letter-spacing:1px;margin-bottom:5px;color:var(--muted)}
+.user{align-self:flex-end;background:var(--green);color:white}
+.user strong{color:#d3eadf}
+.agent{align-self:flex-start}
+.typing{color:var(--muted)}
+.typing span{display:inline-block;animation:blink 1s infinite;margin-right:4px}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+.sim-note{padding:12px 24px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
+.cta{margin:42px 0 0;border-radius:20px;background:var(--ink);color:white;padding:48px;display:flex;justify-content:space-between;align-items:center;gap:28px}
+.cta h2{font-size:30px;margin:0 0 10px}
+.cta p{color:#c0cfd5;font-size:14px;margin:0;max-width:530px}
+.cta .btn{background:#c9eed8;color:#103e30;flex-shrink:0}
+footer{padding:30px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+:focus-visible{outline:3px solid #46a984;outline-offset:4px}
+@keyframes arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,70%,100%{opacity:.3}35%{opacity:1}}
+@media(max-width:760px){
+.hero{grid-template-columns:1fr;gap:35px;padding:54px 0 30px}
+h1{letter-spacing:-2.5px}
+.dashboard{transform:none}
+.section-head{display:block}
+.section-head p{margin-top:12px}
+.compare,.capabilities{grid-template-columns:1fr}
+section{padding:35px 0}
+.cta{padding:30px;flex-direction:column;align-items:flex-start}
+.chat{height:380px;padding:18px}
+.message{max-width:95%}
+.scenarios{padding:16px;gap:8px}
+.scenario{flex:1}
+.nav-link{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+*,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav aria-label="Navigasi utama">
+<a class="brand" href="#home">DENTA<span> / Executive</span></a>
+<a class="nav-link" href="#simulation">Explore the demo ↗</a>
+</nav>
+<main>
+<header class="hero" id="home">
+<div>
+<div class="badge">🟢 Status: Active &amp; Ready 24/7</div>
+<h1>Your clarity.<br><span>My priority.</span></h1>
+<div class="eyebrow">DENTA Executive · Your Executive AI Assistant</div>
+<p class="lead">Menyusun prioritas, merangkum laporan, membuat rencana kerja, dan menyiapkan bahan keputusan.</p>
+<div class="actions">
+<a class="btn primary" href="https://wa.me/6287784287979" target="_blank" rel="noopener noreferrer">Let's Talk · WhatsApp ↗</a>
+<a class="btn secondary" href="#simulation">Coba Simulasi ↓</a>
+</div>
+<p class="hero-note">Documents · Tasks · Calendar · Communication</p>
+</div>
+<aside class="dashboard" aria-label="Ilustrasi ringkasan kerja DENTA">
+<div class="dash-top">
+<div class="avatar" aria-hidden="true">D.</div>
+<div><strong>DENTA Executive</strong><span class="small">Executive workspace / Illustrative preview</span></div>
+</div>
+<div class="task"><span class="check">✓</span><div><strong>Information, simplified.</strong><span class="small">Laporan cabang menjadi ringkasan keputusan.</span></div></div>
+<div class="task"><span class="check">✓</span><div><strong>Priorities, organized.</strong><span class="small">PIC, tenggat, dan status tersusun jelas.</span></div></div>
+<div class="task"><span class="check">✓</span><div><strong>Follow-ups, prepared.</strong><span class="small">Agenda dan draf komunikasi siap ditinjau.</span></div></div>
+<div class="dash-footer">Human in control · Persetujuan sebelum membuat agenda.</div>
+</aside>
+</header>
+
+<section aria-labelledby="problem-title">
+<div class="section-head">
+<div><div class="eyebrow">01 / The transformation</div><h2 id="problem-title">Less chaos. More clarity.</h2></div>
+<p>Dari informasi yang tersebar menuju langkah kerja yang lebih terarah.</p>
+</div>
+<div class="compare">
+<article class="card">
+<h3>The Chaos</h3>
+<div class="item"><strong>01 · Dokumen &amp; Informasi</strong><p>Dokumen tersebar, sulit dicari, dan membaca laporan satu per satu menyita waktu.</p></div>
+<div class="item"><strong>02 · Tugas &amp; Progres</strong><p>Pekerjaan mudah terlewat, prioritas kurang jelas, dan progres tiap PIC sulit dipantau.</p></div>
+<div class="item"><strong>03 · Jadwal &amp; Agenda</strong><p>Jadwal tercecer, berisiko bentrok, dan agenda penting mudah terlupakan.</p></div>
+<div class="item"><strong>04 · Komunikasi &amp; Tindak Lanjut</strong><p>Email menumpuk, balasan terlambat, dan tindak lanjut pekerjaan sering terlewat.</p></div>
+</article>
+<article class="card solution">
+<h3>The Solution</h3>
+<div class="item"><strong>01 · Find, read &amp; summarize</strong><p>Mencari dokumen, membaca laporan cabang, merangkum informasi, dan membandingkan penawaran.</p><span class="tools">Google Drive + Google Docs</span></div>
+<div class="item"><strong>02 · Plan, assign &amp; track</strong><p>Mencatat pekerjaan, menentukan prioritas, serta memantau PIC, tenggat, dan status.</p><span class="tools">Google Sheets</span></div>
+<div class="item"><strong>03 · Review, approve &amp; schedule</strong><p>Membaca jadwal, memeriksa benturan, dan membuat agenda setelah disetujui.</p><span class="tools">Google Calendar + Human-in-the-Loop</span></div>
+<div class="item"><strong>04 · Read, draft &amp; follow up</strong><p>Membaca email pekerjaan, membuat ringkasan, serta menyiapkan draf balasan atau tindak lanjut.</p><span class="tools">Gmail</span></div>
+</article>
+</div>
+</section>
+
+<section aria-labelledby="cap-title">
+<div class="section-head">
+<div><div class="eyebrow">02 / Core capabilities</div><h2 id="cap-title">One assistant. Clear next steps.</h2></div>
+<p>Tiga kapabilitas utama yang mencakup empat bidang pekerjaan.</p>
+</div>
+<div class="capabilities">
+<article class="card"><span class="cap-number">01 / KNOWLEDGE</span><h3>Document Intelligence</h3><p>Ubah dokumen dan laporan menjadi ringkasan, perbandingan, serta bahan keputusan yang mudah ditinjau.</p><div class="pills"><span>Google Drive</span><span>Google Docs</span></div></article>
+<article class="card"><span class="cap-number">02 / EXECUTION</span><h3>Task &amp; Agenda Control</h3><p>Susun prioritas, pantau progres PIC, dan siapkan agenda dengan pemeriksaan benturan serta persetujuan.</p><div class="pills"><span>Google Sheets</span><span>Google Calendar</span><span>HITL</span></div></article>
+<article class="card"><span class="cap-number">03 / COMMUNICATION</span><h3>Executive Follow-up</h3><p>Ringkas email pekerjaan dan siapkan draf balasan atau follow-up agar tindak lanjut lebih terarah.</p><div class="pills"><span>Gmail</span><span>Draft for review</span></div></article>
+</div>
+</section>
+
+<section id="simulation" aria-labelledby="sim-title">
+<div class="section-head">
+<div><div class="eyebrow">03 / Interactive simulation</div><h2 id="sim-title">Meet your digital teammate.</h2></div>
+<p>Pilih skenario untuk melihat contoh cara kerja DENTA Executive.</p>
+</div>
+<div class="simulator">
+<div class="sim-top"><strong>D. / DENTA Executive</strong><span>● Demo workspace</span></div>
+<div class="scenarios" role="group" aria-label="Pilih skenario simulasi">
+<button class="scenario" data-scene="report" aria-pressed="false">📄 Ringkas Laporan</button>
+<button class="scenario" data-scene="tasks" aria-pressed="false">📊 Prioritas &amp; Follow-up</button>
+<button class="scenario" data-scene="calendar" aria-pressed="false">📅 Atur Agenda</button>
+</div>
+<div class="chat" id="chat" role="log" aria-live="polite" aria-relevant="additions" aria-label="Percakapan simulasi">
+<div class="message agent"><strong>DENTA</strong>Halo! Saya DENTA Executive. Pilih salah satu skenario di atas untuk memulai simulasi.</div>
+</div>
+<div class="sim-note">Simulasi dengan data contoh, tanpa akses ke akun Google. Tidak ada dokumen, email, atau kalender yang diubah.</div>
+</div>
+</section>
+
+<div class="cta">
+<div><div class="eyebrow" style="color:#a9dfbf">Ready for a clearer workday?</div><h2>Let's put clarity to work.</h2><p>Diskusikan kebutuhan pengelolaan laporan, tugas, agenda, dan komunikasi bersama Bang Bro.</p></div>
+<a class="btn" href="https://wa.me/6287784287979" target="_blank" rel="noopener noreferrer">Hubungi via WhatsApp ↗</a>
+</div>
+</main>
+<footer>
+<span>© DENTA Executive · Designed for better decisions.</span>
+<span>Built with AI · AI Builder Bootcamp Showcase</span>
+</footer>
+</div>
+<script>
+const chat = document.getElementById('chat');
+const buttons = [...document.querySelectorAll('.scenario')];
+const scenes = {
+report: [
+['user','DENTA, ringkas laporan cabang dan bandingkan dua penawaran supplier.'],
+['agent','Dalam contoh ini, saya meninjau laporan di Google Drive dan Google Docs.\n\nRingkasan: penjualan cabang A meningkat, sementara biaya bahan cabang B perlu ditinjau.\n\nPenawaran A lebih murah; penawaran B memiliki waktu pengiriman lebih singkat. Rekomendasi: verifikasi spesifikasi, ongkir, dan kebutuhan stok sebelum memilih.'],
+['agent','Next step: siapkan ringkasan eksekutif berisi temuan utama, perbandingan penawaran, dan poin keputusan untuk ditinjau.']
+],
+tasks: [
+['user','Susun prioritas pekerjaan PIC dan siapkan follow-up untuk tugas yang terlambat.'],
+['agent','Contoh prioritas dari Google Sheets:\n\nP1 · Rina — Validasi stok bahan — Tenggat hari ini — Menunggu data.\nP2 · Budi — Rekap penjualan cabang — Tenggat besok — Dalam proses.\nP3 · Sari — Materi promosi — Tenggat tiga hari lagi — Belum dimulai.'],
+['agent','Contoh ringkasan Gmail: email terkait validasi stok masih memerlukan balasan.\n\nDraf follow-up:\n“Halo Rina, mohon update validasi stok dan kendala yang dihadapi agar rekap hari ini bisa diselesaikan. Terima kasih.”\n\nDraf siap ditinjau; belum dikirim.']
+],
+calendar: [
+['user','Baca dokumen jadwal dan siapkan agenda evaluasi cabang.'],
+['agent','Pada data contoh, jadwal Google Calendar tidak menunjukkan benturan.\n\nSaya menemukan agenda: Evaluasi Cabang pada 26 Oktober 2026, pukul 10.00–11.00 WIB (Asia/Jakarta). Apakah Anda setuju saya masukkan ke Google Calendar? (Balas \'Ya\' untuk lanjut).'],
+['user','Ya.'],
+['agent','Dalam simulasi ini, persetujuan telah diterima dan proses pembuatan agenda diperagakan.\n\nEvaluasi Cabang\n26 Oktober 2026 · 10.00–11.00 WIB\n\nIni hanya demo; tidak ada acara yang dibuat di Google Calendar.']
+]
+};
+const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+function addMessage(role, text) {
+const box = document.createElement('div');
+box.className = 'message ' + role;
+const label = document.createElement('strong');
+label.textContent = role === 'user' ? 'ANDA' : 'DENTA';
+box.append(label, document.createTextNode(text));
+chat.appendChild(box);
+chat.scrollTop = chat.scrollHeight;
+}
+async function play(key, selected) {
+buttons.forEach(button => {
+button.disabled = true;
+button.setAttribute('aria-pressed', String(button === selected));
+});
+chat.replaceChildren();
+chat.setAttribute('aria-busy', 'true');
+try {
+for (const [role, text] of scenes[key]) {
+if (role === 'agent') {
+const typing = document.createElement('div');
+typing.className = 'message agent typing';
+typing.setAttribute('aria-label', 'DENTA sedang mengetik');
+typing.innerHTML = 'DENTA sedang mengetik <span>●</span><span>●</span><span>●</span>';
+chat.appendChild(typing);
+chat.scrollTop = chat.scrollHeight;
+await pause(1100);
+typing.remove();
+} else { await pause(450); }
+addMessage(role, text);
+await pause(550);
+}
+} finally {
+chat.setAttribute('aria-busy', 'false');
+buttons.forEach(button => button.disabled = false);
+}
+}
+buttons.forEach(button => button.addEventListener('click', () => play(button.dataset.scene, button)));
+</script>
+</body>
+</html>
